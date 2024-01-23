@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+
+
+</head>
+
+<body>x
+    <a-scene cursor="rayOrigin:mouse">
+        <!-- Lingkungan dengan suasana luar angkasa -->
+        <a-entity environment="preset: japan;"></a-entity>
+
+        <!-- Objek-objek tambahan -->
+        <a-box position="-4.012 1 -5" rotation="0 45 0" id="a-box" width="1" height="1" depth="1" color="blue"
+            cursor-listener></a-box>
+
+        <a-assets>
+            <a-asset-item id="door-model" src="assets/door/scene.gltf"></a-asset-item>
+        </a-assets>
+        <a-link href="index.html">
+            <a-gltf-model id="door1" src="#door-model" position="2 1 -5" scale="0.01 0.01 0.01">
+                <a-event-set id="door1-events">
+                    <a-event event="click" handler="handleDoor1Click"></a-event>
+                </a-event-set>
+            </a-gltf-model>
+        </a-link>
+
+        <!-- Objek audio -->
+        <a-sound id="background-music" src="src: url(ttm.mp3)" autoplay="true" loop="true" position="0 1 -5"
+            volume="1"></a-sound>
+
+        <!-- Teks menyambut pengunjung -->
+        <a-text value="Selamat datang di Jepang" position="-3 4 -5" color="#FFFFFF" width="8"
+            animation__color="property: text.color; type: color; to: #0000FF; dir: alternate; loop: true; dur: 2000"
+            animation="property: position; to: -1 4 -5; loop: true; dur: 10000;"></a-text>
+        <a-text value="Silahkan Klik Pintu Untuk Pindah" position="-3 3 -5" color="blue" width="8"></a-text>
+
+
+
+        <a-camera wasd-controls="fly: true; acceleration: 15" look-controls position="0 0.1 0"
+            cursor="rayOrigin: mouse"></a-camera>
+        <script>
+            // Mengambil elemen audio
+            var audio = document.getElementById("background-music");
+
+            // Mendengarkan klik pada tombol
+            document.querySelector("a-box").addEventListener("click", function () {
+                // Memeriksa apakah audio sedang dimainkan
+                if (audio.isPlaying) {
+                    // Jika sedang dimainkan, hentikan
+                    audio.pause();
+                } else {
+                    // Jika tidak sedang dimainkan, putar
+                    audio.play();
+                }
+            });
+
+            function handleDoor1Click() {
+                window.location.href = "moon.html";
+            }
+
+            function handleDoor2Click() {
+                window.location.href = "egypit.html";
+            }
+        </script>
+    </a-scene>
+</body>
+
+</html>
